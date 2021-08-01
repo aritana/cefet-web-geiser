@@ -4,6 +4,7 @@
 // variáveis globais deste módulo
 const PORT = 3000
 const db = {}
+console.log("oi")
 
 
 // carregar "banco de dados" (data/jogadores.json e data/jogosPorJogador.json)

@@ -1,11 +1,27 @@
 // importação de dependência(s)
-
+import express from 'express'
 
 // variáveis globais deste módulo
-const PORT = 3000
-const db = {}
-console.log("oi")
+const PORT = 3000;
+const db = {};
+const app = express(); //criacao de aplicacao express
 
+//nossos arquivos estáticos
+
+app.use(express.static(`client`));
+
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+
+})
+
+
+const server = app.listen(3000, () => {
+    const host = server.address().address;
+    const port = server.address().port;
+
+    console.log(`Listening at http://${host}:${port}`);
+});
 
 // carregar "banco de dados" (data/jogadores.json e data/jogosPorJogador.json)
 // você pode colocar o conteúdo dos arquivos json no objeto "db" logo abaixo

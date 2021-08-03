@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/aritana/cefet-web-geiser#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "handlebars": "^4.7.7"
   },
   "type": "module"
 }

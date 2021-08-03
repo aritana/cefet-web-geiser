@@ -7,7 +7,6 @@ const db = {};
 const app = express(); //criacao de aplicacao express
 
 //nossos arquivos estáticos
-
 app.use(express.static(`client`));
 
 app.get('/', (req, res) => {
@@ -16,7 +15,7 @@ app.get('/', (req, res) => {
 })
 
 
-const server = app.listen(3000, () => {
+const server = app.listen(PORT, () => {
     const host = server.address().address;
     const port = server.address().port;
 
@@ -34,7 +33,8 @@ const server = app.listen(3000, () => {
 //app.set('view engine', '???qual-templating-engine???');
 //app.set('views', '???caminho-ate-pasta???');
 // dica: 2 linhas
-
+app.set('view engine', 'hbs');
+app.set('views', './views');
 
 // EXERCÍCIO 2
 // definir rota para página inicial --> renderizar a view index, usando os

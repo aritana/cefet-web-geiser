@@ -1,31 +1,30 @@
 // importação de dependência(s)
 import express from 'express'
+import { readFile } from 'fs/promises';
+
 
 // variáveis globais deste módulo
 const PORT = 3000;
 const db = {};
 const app = express(); //criacao de aplicacao express
 
-//nossos arquivos estáticos
-app.use(express.static(`client`));
-
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-
-})
 
 
-const server = app.listen(PORT, () => {
-    const host = server.address().address;
-    const port = server.address().port;
 
-    console.log(`Listening at http://${host}:${port}`);
-});
 
 // carregar "banco de dados" (data/jogadores.json e data/jogosPorJogador.json)
 // você pode colocar o conteúdo dos arquivos json no objeto "db" logo abaixo
 // dica: 1-4 linhas de código (você deve usar o módulo de filesystem (fs))
 
+try {
+
+    db.jogadores = JSON.parse(await readFile(`${process.cwd()}/server/data/jogadores.json`));
+    db.jogosPorJogador = JSON.parse(await readFile(`${process.cwd()}/server/data/jogadores.json`));
+
+} catch (error) {
+
+    console.error(`Erro ao carregar arquivo jogadores.json:${error}`);
+}
 
 
 
@@ -34,7 +33,7 @@ const server = app.listen(PORT, () => {
 //app.set('views', '???caminho-ate-pasta???');
 // dica: 2 linhas
 app.set('view engine', 'hbs');
-app.set('views', './views');
+app.set('views', 'server/views');
 
 // EXERCÍCIO 2
 // definir rota para página inicial --> renderizar a view index, usando os
@@ -42,6 +41,11 @@ app.set('views', './views');
 // dica: o handler desta função é bem simples - basta passar para o template
 //       os dados do arquivo data/jogadores.json (~3 linhas)
 
+app.get('/', (req, res) => {
+    //res.send('hello world');
+    res.render('index');
+
+})
 
 
 // EXERCÍCIO 3
@@ -54,7 +58,15 @@ app.set('views', './views');
 // EXERCÍCIO 1
 // configurar para servir os arquivos estáticos da pasta "client"
 // dica: 1 linha de código
-
+app.use(express.static(`client`));
 
 // abrir servidor na porta 3000 (constante PORT)
 // dica: 1-3 linhas de código
+
+
+const server = app.listen(PORT, () => {
+    const host = server.address().address;
+    const port = server.address().port;
+
+    console.log(`Listening at http://${host}:${port}`);
+});

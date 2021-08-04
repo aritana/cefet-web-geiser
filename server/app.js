@@ -3,6 +3,7 @@ import express from 'express'
 import { readFile } from 'fs/promises';
 
 
+
 // variáveis globais deste módulo
 const PORT = 3000;
 const db = {};
@@ -33,7 +34,9 @@ try {
 //app.set('views', '???caminho-ate-pasta???');
 // dica: 2 linhas
 app.set('view engine', 'hbs');
-app.set('views', 'server/views');
+app.set('views', './server/views');
+
+
 
 // EXERCÍCIO 2
 // definir rota para página inicial --> renderizar a view index, usando os
@@ -43,7 +46,7 @@ app.set('views', 'server/views');
 
 app.get('/', (req, res) => {
     //res.send('hello world');
-    res.render('index');
+    res.render('index', db);//db.jogadores define as variáveis para a view
 
 })
 
